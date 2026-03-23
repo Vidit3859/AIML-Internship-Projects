@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Resume Ranker</title>
+
+    <style>
+
+        body{
+            font-family: Arial;
+            background: linear-gradient(120deg,#89f7fe,#66a6ff);
+            padding:40px;
+        }
+
+        .container{
+            background:white;
+            padding:30px;
+            border-radius:10px;
+            width:700px;
+            margin:auto;
+            box-shadow:0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        h2{
+            text-align:center;
+        }
+
+        textarea{
+            width:100%;
+            padding:10px;
+        }
+
+        button{
+            background:#4CAF50;
+            color:white;
+            padding:10px 20px;
+            border:none;
+            border-radius:5px;
+            cursor:pointer;
+        }
+
+        button:hover{
+            background:#45a049;
+        }
+
+        table{
+            width:100%;
+            margin-top:20px;
+            border-collapse:collapse;
+        }
+
+        th, td{
+            padding:10px;
+            border-bottom:1px solid #ddd;
+            text-align:left;
+        }
+
+        th{
+            background:#f2f2f2;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>🤖 AI Resume Ranker</h2>
+
+<form method="POST" enctype="multipart/form-data">
+
+<textarea name="job_desc" rows="6"
+placeholder="Paste Job Description Here..."></textarea>
+
+<br><br>
+
+<input type="file" name="resumes" multiple>
+
+<br><br>
+
+<button type="submit">Rank Candidates</button>
+
+</form>
+
+{% if rankings %}
+
+<h3>🏆 Ranking Results</h3>
+
+<table>
+
+<tr>
+<th>Rank</th>
+<th>Resume</th>
+<th>Score</th>
+</tr>
+
+{% for file, score in rankings %}
+
+<tr>
+<td>{{ loop.index }}</td>
+<td>{{ file }}</td>
+<td>{{ "%.2f"|format(score) }}</td>
+</tr>
+
+{% endfor %}
+
+</table>
+
+<br>
+
+<a href="/download">
+<button>⬇ Download Report</button>
+</a>
+
+{% endif %}
+
+</div>
+
+</body>
+</html>
